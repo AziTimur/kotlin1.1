@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">kotlin1.1</string>
+    <string name="hint">текст</string>
+    <string name="btn_send">отправить</string>
+</resources>
