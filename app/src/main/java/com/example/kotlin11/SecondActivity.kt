@@ -1,8 +1,10 @@
 package com.example.kotlin11
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.widget.Toast
 import com.example.kotlin11.databinding.ActivityMainBinding
 import com.example.kotlin11.databinding.ActivitySecondBinding
@@ -18,27 +20,25 @@ class SecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.secondEdit.setText(intent.getStringExtra(MainActivity.MESSAGE))
         setClick()
     }
 
     private fun setClick() {
-        val intent = Intent(this, SecondActivity::class.java).apply {}
-        binding.btnSecond.setOnClickListener() {
-            when (binding.secondEdit.text.isEmpty()) {
-                true -> toast("EditText не может быть пустым")
-                false -> binding.btnSecond.setOnClickListener {
-                    val message = binding.secondEdit.text.toString()
-                    intent.putExtra(MainActivity.MESSAGE, binding.secondEdit.text.toString())
-                    startActivity(intent)
-                }
-            }
+        binding.secondEdit.setText(intent.getStringExtra(EXTRA_MESSAGE))
 
+        binding.btnSecond.setOnClickListener {
+            if (binding.secondEdit.text.toString().isEmpty()) {
+                Toast.makeText(this, "заполните поля!", Toast.LENGTH_SHORT).show()
+            } else openActivity()
         }
 
     }
 
-    private fun toast(massage: String) {
-        Toast.makeText(this, massage, Toast.LENGTH_SHORT).show();
+    private fun openActivity() {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra(EXTRA_MESSAGE, binding.secondEdit.text.toString())
+        }
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 }

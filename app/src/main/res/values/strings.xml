@@ -2,4 +2,6 @@
     <string name="app_name">kotlin1.1</string>
     <string name="hint">текст</string>
     <string name="btn_send">отправить</string>
+    <string name="emty">EditText не может быть пустым</string>
+    <string name="style_edit">заполните поля!</string>
 </resources>
